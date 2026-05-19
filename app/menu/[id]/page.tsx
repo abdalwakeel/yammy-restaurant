@@ -1,15 +1,12 @@
-import Breadcrumb from "@/app/components/Breadcrumb";
-import { menu2 } from "@/app/menu2/[id2]/route";
+import Breadcrumb from "../../components/Breadcrumb";
 import Image from "next/image";
-import { menu } from "@/app/data/data"; // أو حسب مسار ملف data.ts الجديد بتاعك
+import { menu } from "../../data/data";
+
 import React from "react";
 export const dynamicParams = true; // 2. إجبار السيرفر على قبول أطباق جديدة
 
-
 async function getFoodData(id: string) {
-  const food = menu2.find(
-    (item:any) => item.id === Number(id)
-  );
+  const food = menu.find((item: any) => item.id === Number(id));
 
   return food;
 }
@@ -19,7 +16,6 @@ export default async function MenuSingle({
 }: {
   params: Promise<{ id: string }>;
 }) {
-
   const { id } = await params;
 
   const food = await getFoodData(id);
@@ -32,6 +28,8 @@ export default async function MenuSingle({
     );
   }
 
+  
+
   return (
     <main id="main">
       <Breadcrumb page="Menu" />
@@ -39,11 +37,10 @@ export default async function MenuSingle({
       <section className="inner-page">
         <div className="container">
           <div className="row">
-
             <div className="col-lg-6">
               <Image
                 src={food.preview}
-                alt={food.title}
+                alt={food.name}
                 height={500}
                 width={500}
                 className="img-fluid"
@@ -51,17 +48,10 @@ export default async function MenuSingle({
             </div>
 
             <div className="col-lg-6">
-              <h2 className="mt-3">
-                {food.title}
-              </h2>
+              <h2 className="mt-3">{food.name}</h2>
 
-              
-
-              <p className="mt-5">
-                {food.description}
-              </p>
+              <p className="mt-5">{food.ingredients}</p>
             </div>
-
           </div>
         </div>
       </section>
