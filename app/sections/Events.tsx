@@ -1,7 +1,7 @@
 'use client'
 import React,{useState,useEffect} from 'react';
 import './events.css';
-
+import { events } from "../data/data"; // استدعاء البيانات مباشرة
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
@@ -20,7 +20,7 @@ export default function Events() {
     const [slides, setSlides] = useState<any[]>([]);
 
     const getEventsData = () => {
-  fetch('http://localhost:3000/api/events')
+  fetch('http://api/events')
     .then(res => res.json())
     .then(data => setSlides(data))
     .catch(e => console.log(e.message));

@@ -1,4 +1,5 @@
 "use client";
+import { gallery } from "../data/data"; // استدعاء البيانات مباشرة
 import React, { useState, useEffect } from "react";
 import SectionTitle from "../components/SectionTitle";
 import Preloader from "../components/Preloader";
@@ -8,7 +9,7 @@ export default function Gallery() {
   const [images, setImages] = useState<any | []>([]);
 
   const getGalleryData = () => {
-    fetch("http://localhost:3000/api/gallery")
+    fetch("http://api/gallery")
       .then((res) => res.json())
       .then((data) => setImages(data))
       .catch((e) => console.log(e.message));

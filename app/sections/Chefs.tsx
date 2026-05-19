@@ -1,10 +1,11 @@
 
+import { chefs } from "../data/data"; // استدعاء البيانات مباشرة
 import React from 'react'
 import SectionTitle from '../components/SectionTitle';
 import ChefsItem from '../components/ChefsItem';
 
 async function getChefsData() {
-  const res = await fetch('http://localhost:3000/api/chefs');
+  const res = await fetch('http://api/chefs');
   return res.json();
 }
 

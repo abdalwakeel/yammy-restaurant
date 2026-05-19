@@ -1,10 +1,11 @@
 import React from "react";
+import { whyUs } from "../data/data"; // استدعاء البيانات مباشرة
 import "./whyUS.css";
 import WhyUsCard from "../components/WhyUsCard";
 import SectionTitle from "../components/SectionTitle";
 
 async function getWhyUsData() {
-  const res = await fetch("http://localhost:3000/api/WhyUs");
+  const res = await fetch("http://api/WhyUs");
   return res.json();
 }
 

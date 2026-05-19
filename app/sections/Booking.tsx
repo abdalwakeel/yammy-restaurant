@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import "./booking.css";
 import SectionTitle from "../components/SectionTitle";
@@ -40,7 +41,7 @@ export default function Booking() {
       // تحويل الحالة إلى loading فوراً قبل بدء الـ fetch ليظهر للمستخدم
       setText({ ...text, validate: 'loading' });
 
-      const response = await fetch('http://localhost:3000/api/booking', {
+      const response = await fetch('http://api/booking', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

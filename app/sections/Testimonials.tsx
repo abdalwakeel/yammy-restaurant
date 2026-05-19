@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
+import { testimonials } from "../data/data"; // استدعاء البيانات مباشرة
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
@@ -18,7 +19,7 @@ export default function Testimonials() {
   const [slides, setSlides] = useState<any | []>([]);
 
   const getTestimonialsData = () => {
-    fetch("http://localhost:3000/api/testimonials")
+    fetch("http://api/testimonials")
       .then((res) => res.json())
       .then((data) => setSlides(data))
       .catch((e) => console.log(e.message));
