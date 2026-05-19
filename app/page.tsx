@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import About from "./sections/About";
 import Booking from "./sections/Booking";
 import Chefs from "./sections/Chefs";
