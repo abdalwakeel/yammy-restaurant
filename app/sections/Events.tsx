@@ -1,82 +1,31 @@
-'use client'
-import React,{useState,useEffect} from 'react';
-import './events.css';
-import { events } from "../data/data"; // استدعاء البيانات مباشرة
-// Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-
-// import required modules
-import { Autoplay, Pagination } from 'swiper/modules';
-
-import './events.css';
-import SectionTitle from '../components/SectionTitle';
-import EventsItem from '../components/EventsItem';
+import React from "react";
+import Image from "next/image";
+// استيراد مصفوفة الأحداث مباشرة
+import { events } from "../data/data"; 
 
 export default function Events() {
-
-    const [slides, setSlides] = useState<any[]>([]);
-
-    const getEventsData = () => {
-  fetch('http://api/events')
-    .then(res => res.json())
-    .then(data => setSlides(data))
-    .catch(e => console.log(e.message));
-};
-
-useEffect(() => {
-  getEventsData();
-}, []);
-
   return (
-  <section id="Events" className="events">
-  <div className="container" data-aos="fade-up">
-    <SectionTitle
-      title="Events"
-      subtitle="Organize Your Events in our Restaurant"
-    />
+    <section id="events" className="events">
+      <div className="container" data-aos="fade-up">
+        <div className="section-header">
+          <h2>Events</h2>
+          <p>Share <span>Your Moments</span> In Our Restaurant</p>
+        </div>
 
-    <div data-aos="fade-up" data-aos-delay="100">
-      <Swiper
-        spaceBetween={0}
-        autoplay={{
-          delay: 5000,
-          disableOnInteraction: false,
-        }}
-        pagination={{
-          el: '.swiper-pagination',
-          type: 'bullets',
-          clickable: true,
-        }}
-        modules={[Autoplay, Pagination]}
-        loop={true}
-        className="events-slider swiper-container"
-      >
-        {slides &&
-          slides.length > 0 &&
-          slides.map(
-            (slide: {
-              id: number;
-              image: string;
-              title: string;
-              price: number;
-              content: string;
-              details: string[];
-              summary: string;
-            }) => (
-              <SwiperSlide key={slide.id}>
-                <EventsItem item={slide} />
-              </SwiperSlide>
-            )
-          )}
-      </Swiper>
-      
-      <div className="swiper-pagination"></div>
-    </div>
-  </div>
-</section>
-)}
-
-        
+        <div className="row gy-4">
+          {events.map((event: any) => (
+            <div className="col-lg-4 col-md-6" key={event.id}>
+              <div className="event-item" style={{ backgroundImage: `url(${event.preview})`, backgroundSize: 'cover', minHeight: '300px' }}>
+                <h3>{event.title || event.name}</h3>
+                <div className="price">
+                  <p><span>${event.price}</span></p>
+                </div>
+                <p className="description">{event.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

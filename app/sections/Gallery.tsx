@@ -1,44 +1,25 @@
-"use client";
-import { gallery } from "../data/data"; // استدعاء البيانات مباشرة
-import React, { useState, useEffect } from "react";
-import SectionTitle from "../components/SectionTitle";
-import Preloader from "../components/Preloader";
-import GalleryItem from "../components/GalleryItem";
+import React from "react";
+import Image from "next/image";
+// استيراد مصفوفة الصور مباشرة
+import { gallery } from "../data/data"; 
 
 export default function Gallery() {
-  const [images, setImages] = useState<any | []>([]);
-
-  const getGalleryData = () => {
-    fetch("http://api/gallery")
-      .then((res) => res.json())
-      .then((data) => setImages(data))
-      .catch((e) => console.log(e.message));
-  };
-
-  useEffect(() => {
-    getGalleryData();
-  }, []);
-
   return (
-    <section id="Gallery" className="gallery">
+    <section id="gallery" className="gallery section-bg">
       <div className="container" data-aos="fade-up">
-        <SectionTitle
-          title="Gallery"
-          subtitle="Some photos from Our Restaurant"
-        />
-      </div>
+        <div className="section-header">
+          <h2>gallery</h2>
+          <p>Check <span>Our Gallery</span></p>
+        </div>
 
-      <div className="container-fluid" data-aos="fade-up" data-aos-delay="100">
-        <div className="row g-0">
-          {!images ? (
-            <Preloader />
-          ) : images.length > 0 ? (
-            images.map((image: { id: number; image: string }) => (
-              <GalleryItem key={image.id} item={image} />
-            ))
-          ) : (
-            <Preloader />
-          )}
+        <div className="row gy-4">
+          {gallery.map((img: any) => (
+            <div className="col-lg-3 col-md-4" key={img.id}>
+              <div className="gallery-item">
+                <Image src={img.preview || img.src} className="img-fluid" alt="gallery-img" width={400} height={400} />
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

@@ -1,31 +1,21 @@
 import React from "react";
-import { whyUs } from "../data/data"; // استدعاء البيانات مباشرة
-import "./whyUS.css";
-import WhyUsCard from "../components/WhyUsCard";
-import SectionTitle from "../components/SectionTitle";
+// استيراد مصفوفة الميزات مباشرة
+import { whyUs } from "../data/data"; 
 
-async function getWhyUsData() {
-  const res = await fetch("http://api/WhyUs");
-  return res.json();
-}
-
-export default async function WhyUs() {
-  const items: [] = await getWhyUsData();
-
+export default function WhyUs() {
   return (
-    <section id="why-us" className="why-us">
-      <div className="container">
-        <SectionTitle title="Why Us" subtitle="Why Choose Our Restaurant"/>
-
-
-        <div className="row">
-          {items &&
-            items.length > 0 &&
-            items.map(
-              (item: { id: number; title: string; content: string }) => (
-                <WhyUsCard key={item.id} item={item} />
-              ),
-            )}
+    <section id="why-us" className="why-us section-bg">
+      <div className="container" data-aos="fade-up">
+        <div className="row gy-4">
+          {whyUs.map((item: any) => (
+            <div className="col-lg-4" key={item.id}>
+              <div className="box">
+                <span>0{item.id}</span>
+                <h4>{item.title || item.name}</h4>
+                <p>{item.description}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

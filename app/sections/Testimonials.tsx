@@ -1,87 +1,32 @@
-"use client";
-import React, { useState, useEffect } from "react";
-
-// Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
-import { testimonials } from "../data/data"; // استدعاء البيانات مباشرة
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
-
-// import required modules
-import { Autoplay, Pagination } from "swiper/modules";
-
-import "./testimonials.css";
-import SectionTitle from "../components/SectionTitle";
-import TestimonialsItem from "../components/TestimonialsItem";
+import React from "react";
+import Image from "next/image";
+// استيراد مصفوفة الآراء مباشرة
+import { testimonials } from "../data/data"; 
 
 export default function Testimonials() {
-  const [slides, setSlides] = useState<any | []>([]);
-
-  const getTestimonialsData = () => {
-    fetch("http://api/testimonials")
-      .then((res) => res.json())
-      .then((data) => setSlides(data))
-      .catch((e) => console.log(e.message));
-  };
-
-  useEffect(() => {
-    getTestimonialsData();
-  }, []);
-
   return (
     <section id="testimonials" className="testimonials section-bg">
       <div className="container" data-aos="fade-up">
-        <SectionTitle
-          title="Testimonials"
-          subtitle="What they' saying about us"
-        />
+        <div className="section-header">
+          <h2>Testimonials</h2>
+          <p>What They Are <span>Saying About Us</span></p>
+        </div>
 
-        <div data-aos="fade-up" data-aos-delay="100">
-          <Swiper
-            slidesPerView={"auto"}
-            speed={600}
-            autoplay={{
-              delay: 5000,
-              disableOnInteraction: false,
-            }}
-            pagination={{
-              el: ".testimonials-swiper-pagination",
-              type: "bullets",
-              clickable: true,
-            }}
-            modules={[Autoplay, Pagination]}
-            loop={true}
-            breakpoints={{
-              320: {
-                slidesPerView: 1,
-                spaceBetween: 20,
-              },
-              1200: {
-                slidesPerView: 3,
-                spaceBetween: 20,
-              },
-            }}
-            className="testimonials-slider swiper-container"
-          >
-            {slides &&
-              slides.length > 0 &&
-              slides.map(
-                (slide: {
-                  id: number;
-                  content: string;
-                  avatar: string;
-                  client: string;
-                  position: string;
-                }) => (
-                  <SwiperSlide key={slide.id}>
-                    <TestimonialsItem item={slide} />
-                  </SwiperSlide>
-                )
-              )}
-          </Swiper>
-          <div className="testimonials-swiper-pagination"></div>
-
+        <div className="row gy-4">
+          {testimonials.map((item: any) => (
+            <div className="col-lg-4 col-md-6" key={item.id}>
+              <div className="testimonial-item">
+                <p>
+                  <i className="bi bi-quote quote-icon-left"></i>
+                  {item.description || item.text}
+                  <i className="bi bi-quote quote-icon-right"></i>
+                </p>
+                <Image src={item.preview || item.image} className="testimonial-img" alt={item.name} width={100} height={100} />
+                <h3>{item.name}</h3>
+                <h4>{item.role || item.job}</h4>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
